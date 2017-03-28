@@ -10,15 +10,15 @@
 
   <body>
     <%= link_to('Auctions', auctions_path)%>
+    <% if user_signed_in? %>
+    <%= link_to 'Sign out', sessions_path, method: :delete %>
+    <%= current_user.full_name %>
+    <% else %>
     <%= link_to 'Sign up', new_user_path%>
     <%= link_to 'Sign in', new_session_path%>
-    <% if user_signed_in? %>
-    <%= current_user.full_name %>
     <% end %>
-
     <hr>
     <%= notice || alert %>
     <%= yield %>
-
   </body>
 </html>
