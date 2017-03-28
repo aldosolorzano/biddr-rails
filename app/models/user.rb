@@ -4,6 +4,9 @@ class User < ApplicationRecord
   has_many :bids, dependent: :destroy
   has_many :bid_auctions, through: :bids, source: :auction
 
+  has_many :watches, dependent: :destroy
+  has_many :watch_auctions, through: :watches, source: :auction
+
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
 validates :email, presence: true,
                   format: VALID_EMAIL_REGEX,

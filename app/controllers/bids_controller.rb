@@ -1,4 +1,11 @@
 class BidsController < ApplicationController
+  before_action :authenticate_user!
+  before_action :authorize,only:[:create]
+
+  def index
+    @auctions = Auction.where('bid_price > ?', 1)
+  end
+
   def create
     auction = Auction.find params[:auction_id]
     bid = Bid.new amount:params[:amount]
@@ -6,13 +13,19 @@ class BidsController < ApplicationController
     bid.auction = auction
 
     if bid.save
-      bid_sum = auction.bid_price + params[:amount].to_f
-      auction.update bid_price:bid_sum
+      auction.update bid_price:params[:amount]
       redirect_to auction_path(auction), notice: 'Thank\'s for bidding'
     else
-      byebug
       redirect_to auction_path(auction)
     end
   end
 
+private
+
+  def authorize
+      auction = Auction.find params[:auction_id]
+      if current_user == auction.user
+        redirect_to auction_path(auction),alert: 'You Can\'t bid your auction'
+    end
+  end
 end

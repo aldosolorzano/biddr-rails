@@ -1,4 +1,9 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user!,only:[:index]
+
+  def index
+    @auctions = current_user.watch_auctions
+  end
 
   def new
     @user = User.new

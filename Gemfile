@@ -30,7 +30,8 @@ gem 'jbuilder', '~> 2.5'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 gem 'cancancan'
-
+gem 'bootstrap-sass', '~> 3.3.6'
+gem 'aasm'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -42,6 +43,8 @@ group :development, :test do
   gem 'hirb'
   gem 'faker'
   gem 'rails-erd'
+  gem 'rspec-rails', '~> 3.5'
+  gem 'rails-controller-testing'
 end
 
 group :development do
