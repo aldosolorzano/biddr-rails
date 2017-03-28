@@ -8,9 +8,11 @@
 <% else %>
   <%= link_to '', auction_watches_path(@auction),method: :post,class:'glyphicon glyphicon-eye-open' %>
 <% end %>
-<% if current_user == @auction.user%>
+<% if current_user == @auction.user && @auction.draft?%>
+  <%= link_to 'Publish',auction_path(@auction,{publish: true }),method: :put,class: 'btn btn-danger' %>
+<% elsif current_user == @auction.user %>
   <%= link_to 'Delete', auction_path(@auction),
-                         data: {confirm: 'Are you sure?'}%>
+  data: {confirm: 'Are you sure?'}%>
 <% end %>
 <%= form_tag auction_bids_path(@auction) do %>
 
@@ -23,6 +25,10 @@
 
 
 <h3>Previous bids</h3>
-<% @auction.bids.order(created_at: :desc).each do |b| %>
+<% if @auction.bids.presence %>
+  <% @auction.bids.order(created_at: :desc).each do |b| %>
   <p><%= b.user.full_name %> <strong>$ <%= b.amount %></strong></p>
+  <% end %>
+<% else %>
+<h4>Be the first one to bid</h4>
 <% end %>

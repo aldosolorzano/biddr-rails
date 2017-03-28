@@ -5,7 +5,7 @@ class AuctionsController < ApplicationController
 
 
   def index
-    @auctions = Auction.order(created_at: :desc)
+    @auctions = Auction.where(aasm_state: 'published').order(created_at: :desc)
   end
 
   def show
@@ -32,8 +32,15 @@ class AuctionsController < ApplicationController
   end
 
   def update
-    auction_params = params.require(:auction).permit(:title,:details,:ends_on,:reserve_price)
 
+    if params[:publish]
+      @auction.publish
+      @auction.save
+      redirect_to auction_path(@auction)
+      return
+    end
+
+    auction_params = params.require(:auction).permit(:title,:details,:ends_on,:reserve_price)
     if @auction.update auction_params
       redirect_to auction_path(@auction)
     else

@@ -9,20 +9,24 @@
   </head>
 
   <body>
-    <%= link_to('Auctions', auctions_path)%>
-    <% if user_signed_in? %>
-    <%= link_to 'Sign out', sessions_path, method: :delete %>
-    <%= current_user.full_name %>
-    <br>
-    <%= link_to 'Watching', users_watching_path%>
-    <% else %>
-    <%= link_to 'Sign up', new_user_path%>
-    <%= link_to 'Sign in', new_session_path%>
-    <% end %>
+    <div class="container">
+      <%= link_to('Auctions', auctions_path)%>
+      <% if user_signed_in? %>
+      <%= link_to 'Sign out', sessions_path, method: :delete %>
+      <%= current_user.full_name %>
+      <br>
+      <%= link_to 'Create auction', new_auction_path,class: 'btn btn-primary'%>
+      <%= link_to 'Watching', users_watching_path%>
+      <%= link_to 'Active Bids', active_bids_path%>
+      <% else %>
+      <%= link_to 'Sign up', new_user_path%>
+      <%= link_to 'Sign in', new_session_path%>
+      <% end %>
+    </div>
     <hr>
     <div class="container">
       <%= notice || alert %>
-      <%= yield %>    
+      <%= yield %>
     </div>
   </body>
 </html>
