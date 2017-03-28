@@ -1,0 +1,19 @@
+<h1><%= @auction.title%></h1>
+<p><%= @auction.details%></p>
+<p><strong>current price:</strong> $<%=@auction.bid_price %></p>
+<p>Reserve price not met</p>
+
+<%= form_tag auction_bids_path(@auction) do %>
+
+  <div class="">
+    <%= number_field_tag :amount %>
+    <%= submit_tag 'Bid' %>
+  </div>
+
+<%end%>
+
+
+<h3>Previous bids</h3>
+<% @auction.bidders.each do |b| %>
+  <%= b.full_name %>
+<% end %>

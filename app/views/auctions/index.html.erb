@@ -1,0 +1,12 @@
+<h1>Auctions</h1>
+
+<% @auctions.each do |a| %>
+  <div class="">
+    <h3><%= link_to a.title, auction_path(a) %></h3>
+    <p><%= a.details %></p>
+    <p><strong>Reserve Price</strong> $<%= a.reserve_price %></p>
+    <p><strong>Current Price</strong> $<%= a.bid_price %></p>
+    <hr>
+  </div>
+
+<% end %>

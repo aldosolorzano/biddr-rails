@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>BiddrRails</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
+  </head>
+
+  <body>
+    <%= link_to('Auctions', auctions_path)%>
+    <%= link_to 'Sign up', new_user_path%>
+    <%= link_to 'Sign in', new_session_path%>
+    <% if user_signed_in? %>
+    <%= current_user.full_name %>
+    <% end %>
+
+    <hr>
+    <%= notice || alert %>
+    <%= yield %>
+
+  </body>
+</html>
