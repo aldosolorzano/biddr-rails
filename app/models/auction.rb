@@ -3,6 +3,9 @@ class Auction < ApplicationRecord
   has_many :bids, dependent: :destroy
   has_many :bidders, through: :bids, source: :user
 
+  has_many :watches, dependent: :destroy
+  has_many :watchers, through: :watches, source: :user
+
   validates :reserve_price, numericality: {greater_than:0}
   validates :details, presence:true,
                           length:{minimum:10}
@@ -12,6 +15,10 @@ class Auction < ApplicationRecord
 
   def previous_bid
     self.bids.last.amount ||=0
+  end
+
+  def watch_by?(user)
+    watches.exists?(user: user)
   end
 
   def set_bid_price

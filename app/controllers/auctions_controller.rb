@@ -7,8 +7,9 @@ class AuctionsController < ApplicationController
   def index
     @auctions = Auction.order(created_at: :desc)
   end
-  
+
   def show
+    @watch = @auction.watches.find_by(user: current_user)
   end
 
   def new
