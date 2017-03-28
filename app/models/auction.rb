@@ -12,6 +12,25 @@ class Auction < ApplicationRecord
   validates :bid_price, numericality: {lower_than: :previous_bid}
   before_validation:set_bid_price
 
+  include AASM
+# draft / published / reserve met / won / canceled / reserve not met
+
+  aasm whiny_transitions: false do
+    state :draft, initial: true
+    state :published, :reserve_met, :won, :canceled, :reserve_not_met
+
+    event :publish do
+      transitions from: :draft, to: :published
+    end
+    event :cancel do
+      transitions from: [:draft,:reserve_met,:won], to: :cancel
+    end
+    event :fail do
+      transitions from: :published, to: :reserve_not_met
+    end
+  end
+
+
 
   def previous_bid
     self.bids.last.amount ||=0
