@@ -1,6 +1,10 @@
 class BidsController < ApplicationController
   before_action :authorize,only:[:create]
 
+  def index
+    @auctions = Auction.where
+  end
+
   def create
     auction = Auction.find params[:auction_id]
     bid = Bid.new amount:params[:amount]
