@@ -15,6 +15,7 @@
     <%= current_user.full_name %>
     <br>
     <%= link_to 'Watching', users_watching_path%>
+    <%= link_to 'Active Bids', active_bids_path%>
     <% else %>
     <%= link_to 'Sign up', new_user_path%>
     <%= link_to 'Sign in', new_session_path%>
@@ -22,7 +23,7 @@
     <hr>
     <div class="container">
       <%= notice || alert %>
-      <%= yield %>    
+      <%= yield %>
     </div>
   </body>
 </html>

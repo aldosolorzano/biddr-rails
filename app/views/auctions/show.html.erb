@@ -23,6 +23,10 @@
 
 
 <h3>Previous bids</h3>
-<% @auction.bids.order(created_at: :desc).each do |b| %>
+<% if @auction.bids.presence %>
+  <% @auction.bids.order(created_at: :desc).each do |b| %>
   <p><%= b.user.full_name %> <strong>$ <%= b.amount %></strong></p>
+  <% end %>
+<% else %>
+<h4>Be the first one to bid</h4>
 <% end %>

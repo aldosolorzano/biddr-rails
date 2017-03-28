@@ -1,8 +1,9 @@
 class BidsController < ApplicationController
+  before_action :authenticate_user!
   before_action :authorize,only:[:create]
 
   def index
-    @auctions = Auction.where
+    @auctions = Auction.where('bid_price > ?', 1)
   end
 
   def create
