@@ -2,7 +2,10 @@
 <p><%= @auction.details%></p>
 <p><strong>current price:</strong> $<%=@auction.bid_price %></p>
 <p>Reserve price not met</p>
-
+<% if current_user == @auction.user%>
+  <%= link_to 'Delete', auction_path(@auction),
+                         data: {confirm: 'Are you sure?'}%>
+<% end %>
 <%= form_tag auction_bids_path(@auction) do %>
 
   <div class="">
@@ -14,6 +17,6 @@
 
 
 <h3>Previous bids</h3>
-<% @auction.bidders.each do |b| %>
-  <%= b.full_name %>
+<% @auction.bids.each do |b| %>
+  <p><%= b.user.full_name %> <strong>$ <%= b.amount %></strong></p>
 <% end %>
